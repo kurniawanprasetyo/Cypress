@@ -1,0 +1,15 @@
+{
+    "institution_id" : "804506",
+    "institution_name" : "User Cypress",
+    "va_name" : "User Cypress",
+    "va_id" : "10030821",
+    "destination_code" : "901249",
+    "feature" : "To Account",
+    "mitra_id" : "Transferto",
+    "destination_country" : "Indonesia",
+    "begin_date" : "2021-09-01",
+    "end_date" : "2022-10-20",
+    "email" : "user.cypress@artajasa.co.id",
+    "destination_name" : "Cypress",
+    "payer_id" : "765"
+}

@@ -1,0 +1,22 @@
+{
+  "baseUrl": "https://web-staging.bersamaku.id/auth/login",
+  "chromeWebSecurity": false,
+  "testFiles": [
+      "CollectionAgent.spec.js",
+      "TransactionConfig.spec.js",
+      "VirtualAccount.spec.js",
+      "CashIn.spec.js",
+      "CashOut.spec.js",
+      "Routing.spec.js",
+      "Fee.spec.js",
+      "987Config.spec.js",
+      "UserManagement.spec.js",
+      "RemainingBalance.spec.js",
+      "Destination.spec.js",
+      "TransferToCreditMapping.spec.js",
+      "AdjustmentReconcile.spec.js",
+      "loop.test.js"
+    ],
+  "video": false,
+  "screenshotOnRunFailure": false
+}

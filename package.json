@@ -1,0 +1,28 @@
+{
+  "name": "cypress-bku",
+  "version": "1.0.0",
+  "description": "Tes Cypress untuk keperluan web testing BKU Web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/elangbayu/cypress-bku.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/elangbayu/cypress-bku/issues"
+  },
+  "homepage": "https://gitlab.com/elangbayu/cypress-bku#readme",
+  "devDependencies": {
+    "@types/lodash": "^4.14.171",
+    "cypress": "^8.7.0"
+  },
+  "dependencies": {
+    "cypress-react-selector": "^2.3.11",
+    "lodash": "^4.17.21"
+  }
+}
