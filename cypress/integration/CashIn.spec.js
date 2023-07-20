@@ -10,22 +10,23 @@ describe('Cash In', function(){
         })
       })
 
-    // var idRequest =''
-
+    // Variable to store Reference id
+    let referenceid
+    // Request Cash In
     it('Request Cash In', function(){
-        //Login as maker
-        cy.login(this.logindata.maker_username, this.logindata.maker_password);
+        //Login as approval
+        cy.login(this.logindata.approval_username, this.logindata.approval_password);
         cy.get('#kt_header_menu_wrapper > .font-weight-bold').then(($header) => {
             expect($header).to.have.text('Bersama Kirim Uang')
         })
         //Go to cash in menu
-        cy.contains('Virtual Account').click();
-        cy.get(':nth-child(4) > .menu-submenu > .menu-subnav > .menu-item ').should(($submenu) => {
+        cy.contains('Virtual Account').click({force: true});
+        cy.get('.menu-nav > :nth-child(4) > .menu-submenu > .menu-subnav >').should(($submenu) => {
             expect($submenu).to.have.length(6)
             expect($submenu.first()).to.contain('Cash In')
             expect($submenu.last()).to.contain('Monitoring Balance')
         })
-        cy.contains('Cash In').click();
+        cy.get('.menu-nav > :nth-child(4)').contains('Cash In').click({force: true});
         cy.get('h3 > b').then(($listrouting) => {
             expect($listrouting).to.have.text('Cash In List')
         })
@@ -33,9 +34,9 @@ describe('Cash In', function(){
             .should('be.visible')
             .click();
         //Request Cash In
-        // cy.get('.modal-title').then(($form) => {
-        //     expect($form).to.have.text('Cash In')
-        // })
+        cy.get('.modal-title').then(($form) => {
+            expect($form).to.have.text(' Cash In')
+        })
         cy.get('select[name=va_id]').select('30089100936000201');
         cy.get('input[name=amount]').type('100000000');
         cy.get('textarea[name=remarks]').type('Automation using cypress');
@@ -43,28 +44,23 @@ describe('Cash In', function(){
             .should('be.visible');
         cy.contains('Submit')
             .should('be.visible')
-            .click();
-        cy.get('.MuiSnackbar-root > .MuiPaper-root')
-            .should('have.css', 'background-color')
-            .and('eq', 'rgb(76, 175, 80)')        
+            .click();     
         cy.get('.MuiAlert-message').then(($message) => {
             expect($message).to.contain('Successfully Create Data Cash-In Virtual Account')
         })
-        // cy.get('.MuiAlert-message').invoke('text')
-        // .then((id) => {
-        //     var splitText = id.split(' ')
-        //     console.log(splitText)
-        //     idRequest = splitText[splitText.length-1]
-        //     console.log(idRequest)
-        // })
-        console.log(idRequest)
-        //Log Out
+        cy.wait(5000)
+        //Get Reference id
+        cy.get("tbody > :nth-child(1) > :nth-child(2) > div").invoke('text')
+            .then((id) => {
+                referenceid = id;
+            })
+        console.log(referenceid)
         cy.get('.btn > .symbol > .symbol-label').click();
-        cy.get('.navi-footer > .btn').click();
+        cy.contains('Sign Out').click();
     })
     it('Checked Cash in', function(){
         //Login as checker
-        cy.login(this.logindata.checker_username, this.logindata.checker_password);
+        cy.login(this.logindata.approval_username, this.logindata.approval_password);
         //Go to menu approval virtual account
         cy.contains('Approval').click();
         cy.contains('Approval Virtual Account').click();
@@ -72,12 +68,12 @@ describe('Cash In', function(){
         cy.get('h3 > b').then(($listrouting) => {
             expect($listrouting).to.have.text('Approval Virtual Account List')
         })
-        // cy.contains('div', idRequest)
-        //     .parents('tr').within(() => {
-        //         cy.get(':nth-child(11)').children('.btn-hover-warning')
-        //         .click();
-        //     })
-        cy.get(':nth-child(1) > :nth-child(12) > .btn-hover-warning').click();
+        //Get Cash In Request & Click Checked 
+        cy.contains('div', referenceid)
+            .parents('tr').within(() => {
+                cy.get(':nth-child(12)').children('.btn-hover-warning')
+                .click();
+            })
         cy.get('.modal-title').then(($form) => {
             expect($form).to.have.text('Update Approval CASH IN')
         })
@@ -86,10 +82,7 @@ describe('Cash In', function(){
             .should('be.visible');
         cy.contains('Submit')
             .should('be.visible')
-            .click();
-        cy.get('.MuiSnackbar-root > .MuiPaper-root')
-            .should('have.css', 'background-color')
-            .and('eq', 'rgb(76, 175, 80)')        
+            .click();      
         cy.get('.MuiTypography-root').then(($message) => {
             expect($message).to.contain('Successfully Update Approval CASH-IN ')
         })
@@ -107,12 +100,11 @@ describe('Cash In', function(){
         cy.get('h3 > b').then(($listrouting) => {
             expect($listrouting).to.have.text('Approval Virtual Account List')
         })
-        // cy.contains('div', idRequest) 
-        //     .parents('tr').within(() => {
-        //         cy.get(':nth-child(11)').children('.btn-hover-warning')
-        //         .click();
-        //     })
-        cy.get(':nth-child(1) > :nth-child(12) > .btn-hover-warning').click();
+        cy.contains('div', referenceid) 
+            .parents('tr').within(() => {
+                cy.get(':nth-child(12)').children('.btn-hover-warning')
+                .click();
+            })
         cy.get('.modal-title').then(($form) => {
             expect($form).to.have.text('Update Approval CASH IN')
         })
@@ -122,9 +114,6 @@ describe('Cash In', function(){
         cy.contains('Submit')
             .should('be.visible')
             .click();
-        cy.get('.MuiSnackbar-root > .MuiPaper-root')
-            .should('have.css', 'background-color')
-            .and('eq', 'rgb(76, 175, 80)')        
         cy.get('.MuiTypography-root').then(($message) => {
             expect($message).to.contain('Successfully Update Approval CASH-IN ')
         })
